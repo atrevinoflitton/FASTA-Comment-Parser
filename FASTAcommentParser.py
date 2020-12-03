@@ -16,7 +16,7 @@ def fasta_comment_parser(file_name):
         file = f.read()
 
     # Regex for Title Part 1
-    title_pat = (r">(\w{3}\d)_")
+    title_pat = (r">(\w+\d)_")
     title_list = re.findall(title_pat, file)
 
     # Regex for Title Part 2
@@ -45,3 +45,48 @@ def fasta_comment_parser(file_name):
 
 ## Calling the function, specifying the file with the FASTA sequences in local directory
 fasta_comment_parser("MID2_454AllContigs.fna")
+
+
+
+
+
+def user_fasta_comment_parser():
+    import re
+
+    file_name = str(input("Please enter the name of the file with the FASTA sequences you would like to parse:"))
+
+    out_file_name = str(input("Please name the file you would like to save the results to including file extension "))
+
+    ## Open & Read
+    with open(file_name, 'r') as f:
+        file = f.read()
+
+    # Regex for Title Part 1
+    title_pat = (r">(\w+\d)_")
+    title_list = re.findall(title_pat, file)
+
+    # Regex for Title Part 2
+    title2_pat = (r"_(\w{6}\d{5})")
+    title2_list = re.findall(title2_pat, file)
+
+    # Regex for Length
+    len_pat = (r"length=(\d+)")
+    length = re.findall(len_pat, file)
+
+    # Regex for Number Reads
+    num_pat = (r"numreads=(\d+)")
+    num = re.findall(num_pat, file)
+
+    ## Write output file
+    out_file = open(out_file_name, 'w')
+    out_file.write("Written by Analia Treviño-Flitton\n\n")
+    for i in range(len(num)):
+        formatting = (title_list[i], '\t', title2_list[i], '\t\t', length[i], '\t\t', num[i], '\n')
+        for x in formatting:
+            out_file.write(str(x))
+
+    ## Close output file
+    out_file.close()
+
+## Calling the function, specifying the file with the FASTA sequences in local directory
+user_fasta_comment_parser()
