@@ -21,7 +21,6 @@ FASTAcommentParser.py
 * Uses one function to open, read, parse, and write the output file
 ---
 
----
 MID2_454AllContigs.fna
 * Test file with various FASTA sequences
 ---
